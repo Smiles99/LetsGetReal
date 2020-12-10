@@ -167,3 +167,15 @@ public class RationalNumber extends RealNumber {
             return 0;
         }
         
+        /**
+         *Divide the numerator and denominator by the GCD
+         *This must be used to maintain that all RationalNumbers are
+         *reduced after construction.
+         */
+        private void reduce(){
+            int reduce = gcd(numerator, denominator);
+            numerator = numerator / reduce;
+            denominator = denominator / reduce;
+        }
+        
+        
