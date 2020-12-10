@@ -1,5 +1,44 @@
 public class LetsGetReal {
-    public class RealNumber{
+    public abstract class Number{
+        public abstract double getValue();
+
+        public boolean equals(Number other){
+            double x = this.getValue();
+            if ((x == 0) && (other.getValue() == 0)) {
+                return true;
+            } else {
+                if (x >= other.getValue()) {
+                    if (other.getValue() <= (x * 1.00001) && other.getValue() >= (x * 0.99999)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        /*return 0 when this Number equals the other RealNumber
+        return a negative value when this Number is smaller than the other Number
+        return a positive value when this Number is larger than the other Number
+        */
+        public int compareTo(Number other){
+            if (this.equals(other.getValue())) {
+                return 0;
+            } else {
+                double result = getValue() - other.getValue();
+                int answer = (int) result;
+                return answer;
+            }
+        }
+
+        /*
+         *Return true when the % difference of the values
+         *are within 0.00001 of eachother.
+         *Special case: if one is exactly zero, the other must be exactly zero.
+         */
+
+
+
+    public class RealNumber extends Number{
         private double value;
 
         public RealNumber(double v){
@@ -14,7 +53,7 @@ public class LetsGetReal {
             return "" + getValue();
         }
 
-        public boolean equals(RealNumber other){
+        /*public boolean equals(RealNumber other){
             double x = this.getValue();
             if ((x == 0) && (other.getValue() == 0)) {
                 return true;
@@ -27,6 +66,7 @@ public class LetsGetReal {
             }
             return false;
         }
+        */
 
         public RealNumber add(RealNumber other){
             RealNumber add = new RealNumber(value + other.getValue());
