@@ -29,7 +29,7 @@ public class LetsGetReal {
         }
 
         public RealNumber add(RealNumber other){
-            RealNumber add = this + other;
+            RealNumber add = new RealNumber(value + other.getValue());
             return add;
         }
 
@@ -38,7 +38,7 @@ public class LetsGetReal {
          *the product of this and the other
          */
         public RealNumber multiply(RealNumber other){
-            RealNumber multiply = this * other;
+            RealNumber multiply = new RealNumber(value * other.getValue());
             return multiply;
         }
 
@@ -47,7 +47,7 @@ public class LetsGetReal {
          *this divided by the other
          */
         public RealNumber divide(RealNumber other){
-            RealNumber divide = this / other;
+            RealNumber divide = new RealNumber(value / other.getValue());
             return divide;
         }
 
@@ -56,12 +56,12 @@ public class LetsGetReal {
          *this minus the other
          */
         public RealNumber subtract(RealNumber other){
-            RealNumber subtract = this - other;
+            RealNumber subtract = new RealNumber(value - other.getValue());
             return subtract;
         }
     }
 
-public class RationalNumber extends RealNumber {
+    public class RationalNumber extends RealNumber {
         private int numerator, denominator;
 
         /**Initialize the RationalNumber with the provided values
@@ -123,14 +123,14 @@ public class RationalNumber extends RealNumber {
             }
             return false;
         }
-        
+
         /**
          *@return the value expressed as "3/4" or "8/3"
          */
         public String toString(){
             return "" + numerator + "/" + denominator;
         }
-        
+
         /**Calculate the GCD of two integers.
          *@param a the first integers
          *@param b the second integer
@@ -166,7 +166,7 @@ public class RationalNumber extends RealNumber {
             }
             return 0;
         }
-        
+
         /**
          *Divide the numerator and denominator by the GCD
          *This must be used to maintain that all RationalNumbers are
@@ -177,5 +177,42 @@ public class RationalNumber extends RealNumber {
             numerator = numerator / reduce;
             denominator = denominator / reduce;
         }
-        
-        
+        /******************Operations Return a new RationalNumber!!!!****************/
+        /**
+         *Return a new RationalNumber that is the product of this and the other
+         */
+        public RationalNumber multiply(RationalNumber other){
+            RationalNumber multiply = new RationalNumber(numerator * other.getNumerator(), denominator * other.getDenominator());
+            return multiply;
+        }
+
+        /**
+         *Return a new RationalNumber that is the this divided by the other
+         */
+        public RationalNumber divide(RationalNumber other){
+            RationalNumber divide = new RationalNumber(numerator * other.getDenominator(), denominator * other.getNumerator());
+            return divide;
+        }
+
+        /**
+         *Return a new RationalNumber that is the sum of this and the other
+         */
+        public RationalNumber add(RationalNumber other){
+            numerator = numerator * other.denominator;
+            denominator = denominator * other.denominator;
+            other.numerator = other.numerator * denominator;
+            RationalNumber add = new RationalNumber(numerator + other.numerator, denominator);
+            return add;
+        }
+        /**
+         *Return a new RationalNumber that this minus the other
+         */
+        public RationalNumber subtract(RationalNumber other){
+            numerator = numerator * other.denominator;
+            denominator = denominator * other.denominator;
+            other.numerator = other.numerator * denominator;
+            RationalNumber add = new RationalNumber(numerator - other.numerator, denominator);
+            return add;
+        }
+    }
+}
